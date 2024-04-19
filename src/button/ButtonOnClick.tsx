@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Button = () => {
+export const ButtonOnClick = () => {
     /*const Hello = () => {
         console.log('Hello')
     }*/
