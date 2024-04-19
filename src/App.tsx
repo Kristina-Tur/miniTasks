@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {NewComponent} from "./NewComponent";
+import {NewComponent} from "./map/components/NewComponent";
+import {Cars} from './map/components/Cars';
 
 function App() {
-    const [students, setStudents] = useState([
+        const [students, setStudents] = useState([
             {id: 1, name: "James", age: 8},
             {id: 2, name: "Robert", age: 18},
             {id: 3, name: "John", age: 28},
@@ -17,7 +18,11 @@ function App() {
         ]
     )
     return (
-        <NewComponent students={students}/>
+        <>
+            <NewComponent students={students}/>
+            <Cars/>
+        </>
+
     );
 }
 
