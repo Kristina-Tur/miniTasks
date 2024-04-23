@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import {Map} from './map/Map';
-import {ButtonOnClick} from './button/ButtonOnClick';
-import {Buttons} from './button/ButtonCallback/Buttons';
-import {UseState} from './useState/useState';
-import {Filter} from './filter/Filter';
+import {Map} from './miniTasks/map/Map';
+import {ButtonOnClick} from './miniTasks/button/ButtonOnClick';
+import {Buttons} from './miniTasks/button/ButtonCallback/Buttons';
+import {UseState} from './miniTasks/useState/useState';
+import {Filter} from './miniTasks/filter/Filter';
 
 function App() {
     return (
-        <Filter/>
+        <div>
+
+        </div>
     );
 }
 
