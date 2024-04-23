@@ -8,7 +8,7 @@ import {Filter} from './miniTasks/filter/Filter';
 function App() {
     return (
         <div>
-
+//commit
         </div>
     );
 }
