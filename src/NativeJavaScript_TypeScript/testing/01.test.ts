@@ -1,14 +1,19 @@
 import {sum} from './01';
 
-test('sum should be correct', () => {
+let a: number;
+let b: number;
+
+beforeEach(() => {
     //data
-    const a = 1;
-    const b = 2;
-    const c = 3;
+    a = 1;
+    b = 1;
+})
+test('sum should be correct', () => {
+
 
     //action(действие)
     const result = sum(a, b);
 
     //expect result(ожидаемый результат)
-    expect(result).toBe(3);
+    expect(result).toBe(0);
 })
