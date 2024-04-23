@@ -1,28 +1,28 @@
-type AddressPropsType = {
+type AddressType = {
     streetTitle: string
-    city: CityPropsType
+    city: CityType
 }
 
-type CityPropsType = {
+type CityType = {
     title: string
     countryTitle: string
 }
 
-type TechPropsType = {
+type TechType = {
     id: number
     title: string
 }
 
-type StudentPropsType = {
+export type StudentType = {
     id: number
     name: string
     age: number
     isActive: boolean
-    address: AddressPropsType
-    technologies: Array<TechPropsType>
+    address: AddressType
+    technologies: Array<TechType>
 }
 
-const student: StudentPropsType = {
+const student: StudentType = {
     id: 1,
     name: "Dimych",
     age: 32,
