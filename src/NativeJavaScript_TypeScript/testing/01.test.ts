@@ -1,19 +1,29 @@
-import {sum} from './01';
+import {mult, sum} from './01';
 
 let a: number;
 let b: number;
 
 beforeEach(() => {
-    //data
-    a = 1;
-    b = 1;
+
 })
 test('sum should be correct', () => {
-
-
+    //data
+    a = 1;
+    b = 5;
     //action(действие)
     const result = sum(a, b);
 
     //expect result(ожидаемый результат)
-    expect(result).toBe(0);
+    expect(result).toBe(6);
+})
+
+test('mult should be correct', () => {
+    //data
+    a = 1;
+    b = 5;
+    //action(действие)
+    const result = mult(a, b);
+
+    //expect result(ожидаемый результат)
+    expect(result).toBe(5);
 })
