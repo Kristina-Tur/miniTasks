@@ -42,35 +42,34 @@ console.log(model);  // 'Camry'
 console.log(year);   // 2022 (значение по умолчанию)*/
 
 
-/*/!*5) Извлечь значения из массива объектов и вывести их в консоль*!/
+/*5) Извлечь значения из массива объектов и вывести их в консоль*/
 const students = [
     { name: 'Alex', grade: 'A' },
     { name: 'Emma', grade: 'B' },
     { name: 'Chris', grade: 'C' },
 ];
 
-const [student1, , student3] = students;
-const {name} = student1
+const [{name: student1}, , {name: student3}] = students;
 
-console.log(name);  // 'Alex'
-console.log(student3.name);  // 'Chris'*/
+console.log(student1);  // 'Alex'
+console.log(student3);  // 'Chris'
 
 
 /*6) Установите значение по умолчанию для свойства age которого нет в объекте person
 и переименовать переменные, чтобы достать значение из свойства firstName
 и вывести результат в консоль*/
 
-const person = { firstName: 'Max', lastName: 'Johnson' };
+/*const person = { firstName: 'Max', lastName: 'Johnson' };
 
 const firstName = 'first Name: Nina';
 const lastName = 'last Name: Ivanov';
 
-const {firstName: name, lastName: secondName, age = '25'} = person
+const {firstName: name, lastName: secondName, age = 25} = person
 
 
 console.log(name); // 'Max'
 console.log(secondName); // 'Johnson'
-console.log(age); // 25 (значение по умолчанию)
+console.log(age); // 25 (значение по умолчанию)*/
 
 
 

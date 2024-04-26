@@ -20,8 +20,7 @@ console.log(a);{test: 'test value'}
 
 /*--------------*/
 
-/*
-const user = {
+/*const user = {
     name: 'John',
     address: {
         city: 'New York',
@@ -29,7 +28,13 @@ const user = {
     },
 };
 
-const updatedUser = {...user, address: {...user.address, city: 'Toronto'}}
+const updatedUser = {
+    ...user,
+    address: {
+        ...user.address,
+        city: 'Toronto'
+    }
+}
 console.log(updatedUser)*/
 
 /*--------------*/
