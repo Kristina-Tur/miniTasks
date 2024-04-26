@@ -6,11 +6,13 @@ import {UseState} from './miniTasks/useState/useState';
 import {Filter} from './miniTasks/filter/Filter';
 import {FullInput} from './miniTasks/input/FullInput';
 import {AppTest} from './miniTasks/input/AppTest';
+import {MyInput} from './miniTasks/input/myInput/MyInput';
+import {MyApp} from './miniTasks/input/myInput/MyApp';
 
 function App() {
     return (
         <div className="App">
-            <AppTest/>
+            <MyApp/>
         </div>
     );
 }
