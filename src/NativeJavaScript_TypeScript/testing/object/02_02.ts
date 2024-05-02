@@ -5,13 +5,14 @@ export type CityType = {
     citizensNumber: number
 }
 
-type HouseType = {
+export type HouseType = {
+    id?: number
     buildedAt: number
     repaired: boolean
     address: AddressType
 }
 
-type AddressType = {
+export type AddressType = {
     number?: number
     street: StreetType
 }
@@ -20,7 +21,7 @@ type StreetType = {
     title: string
 }
 
-type GovernmentBuildingsType = {
+export type GovernmentBuildingsType = {
     type: 'HOSPITAL' | 'FIRE-STATION'
     budget: number
     staffCount: number
