@@ -130,11 +130,30 @@ console.log(fruits.has('banana')); // false
 console.log(fruits); // Set(2) { 'apple', 'mango' }*/
 
 
-const numbers = [1, 1, 4, 6, 7, 8, 9, 0, 0, 10, 10, 11]
+/*const numbers = [1, 1, 4, 6, 7, 8, 9, 0, 0, 10, 10, 11]
 const result = new Set(numbers)
 
 console.log('result: ', result); //result:  [
 //   1, 4,  6,  7, 8,
 //   9, 0, 10, 11
-// ]
+// ]*/
 
+const student = {
+    name: "Leo"
+}
+
+const newStudent = student
+
+const myFriend = {
+    ...newStudent
+}
+
+const newUser = {
+    name: "Ekaterina"
+}
+
+const myFriendName =  student.name !== myFriend.name
+    ? newUser.name
+    : student.name
+console.log(myFriendName)
+/*Какое значение получит переменная "myFriendName"?*/
