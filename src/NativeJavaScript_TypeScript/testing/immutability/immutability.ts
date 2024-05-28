@@ -22,6 +22,9 @@ export type UserTypeAndCompanies = UserTypeAndBook & {
     companies: Companies[]
 }
 
+export type Companies2 = {
+        [key: string]: Companies[]
+}
 
 export function moveUser(u: UserType, title: string) {
     return {...u, address: {title: title}}
@@ -42,4 +45,8 @@ export function removeBook(u: UserTypeAndBook, title: string) {
 }
 export function updateCompanies(u: UserTypeAndCompanies, index: number, title: string) {
     return {...u, companies: u.companies.map(c => c.id === index ? {...c, title} : c)}
+}
+export function updateCompanies2(company: Companies2, userTitle: string, id: number,
+                                 newTitle: string) {
+    return {...company, [userTitle]: company[userTitle].map(c => c.id === id ? {...c, title: newTitle} : c)}
 }

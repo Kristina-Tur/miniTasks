@@ -1,10 +1,11 @@
 import {
+    Companies2,
     moveBooks,
     moveLaptop,
     moveUser,
     removeBook,
     updateBooks,
-    updateCompanies,
+    updateCompanies, updateCompanies2,
     UserType,
     UserTypeAndBook, UserTypeAndCompanies
 } from "./immutability";
@@ -132,5 +133,18 @@ test("update companies", () => {
 
     expect(user).not.toBe(movedBooks);
     expect(movedBooks.companies[0].title).toBe('Epam')
+});
+
+test("update companies2", () => {
+    let companies: Companies2 = {
+            'Roman': [{id: 1, title: 'Епам'}, {id: 2, title: 'Google'}],
+            'Alex': [{id: 1, title: 'Google'}],
+    };
+
+    const movedBooks = updateCompanies2(companies,'Roman', 1, 'Epam');
+
+    expect(companies).not.toBe(movedBooks);
+    expect(movedBooks['Roman'][0].title).toBe('Epam')
+    expect(companies['Alex']).toBe(movedBooks['Alex'])
 });
 
