@@ -1,18 +1,19 @@
 // Lexical environmentm, closure, recursion
+//globalLE {} --> null
 
-// let car = "bmw";
 
-// function startEngine() {
-//   const car = "audi";
-//   return () => {
-//     console.log(car);
-//   };
-// }
-// console.log(a);
-// car = "kia";
+/* let car = "bmw";
 
-// const foo = startEngine();
-// foo();
+ function startEngine() {
+  const car = "audi";
+   return () => {
+     console.log(car);
+   };
+ }
+ car = "kia";
+
+ const foo = startEngine();
+ foo();*/
 
 // function foo() {}
 
@@ -28,88 +29,88 @@
 
 // globalLE {bar: Function, str: undefined} ->
 
-// bar()
-// console.log(str)
+/*bar()
+console.log(str)
 
-// const a = 10 // {bar: Function, str: undefined, a: 10}
-// let b = 20 // {bar: Function, str: undefined, a: 10, b: 20}
-// const foo = () => {} // {bar: Function, str: undefined,, a: 10, b: 20, foo: Function}
-// function bar() {}
+const a = 10 // {bar: Function, str: undefined, a: 10}
+let b = 20 // {bar: Function, str: undefined, a: 10, b: 20}
+const foo = () => {} // {bar: Function, str: undefined,, a: 10, b: 20, foo: Function}
+function bar() {}
 
-// foo()
+foo()
 
-// var str = 'str' // {bar: Function, str: 'str', a: 10, b: 20, foo: Function}
+var str = 'str' // {bar: Function, str: 'str', a: 10, b: 20, foo: Function}*/
 
 // ---------------
 
 // globalLE {car: 'bmw', foo: func} -> null
 
-// let car = "bmw";
+/* let car = "bmw";
 
-// const foo = () => {
-//   // {} => globalLE
-//   console.log(car);
-// };
+ const foo = () => {
+   // {} => globalLE
+   console.log(car);
+ };
 
-// foo();
+ foo();
 
-// car = "audi"; // globalLE { foo: func} -> null
+ car = "audi"; // globalLE { foo: func} -> null
 
-// foo();
+ foo();*/
 
 // ---------------------------------------
 
 // globalLE {counterCreator: func, counter: } -> null
 
-// const counterCreator = () => {
-//   // counterCreatorLE1 {} -> globalLE
-//   // counterCreatorLE2 {} -> globalLE
-//   let count = 0;
+/*const counterCreator = () => {
+  // counterCreatorLE1 {} -> globalLE
+  // counterCreatorLE2 {} -> globalLE
+  let count = 0;
 
-//   return () => {
-//     console.log(++count);
-//   };
-// };
+  return () => {
+    console.log(++count);
+  };
+};
 
-// const counter1 = counterCreator(); // в counter1 будет ссылка на анонимную функцию
-// // из counterCreator () => {console.log(++count)}; которая запомнит обьект LE counterCreatorLE1 {}
-// const counter2 = counterCreator();  // в counter2 будет ссылка на анонимную функцию
-// // из counterCreator () => {console.log(++count)}; которая запомнит обьект LE counterCreatorLE2 {}
+const counter1 = counterCreator(); // в counter1 будет ссылка на анонимную функцию
+// из counterCreator () => {console.log(++count)}; которая запомнит обьект LE counterCreatorLE1 {}
+const counter2 = counterCreator();  // в counter2 будет ссылка на анонимную функцию
+// из counterCreator () => {console.log(++count)}; которая запомнит обьект LE counterCreatorLE2 {}
 
-// counter1();
-// counter1();
-// counter1();
+counter1();
+counter1();
+counter1();
 
-// counter2();
-// counter2();
-// counter2();
+counter2();
+counter2();
+counter2();*/
 
 // ----------------------------------
 
-// const saveUser = (logger) => (user) => {
-//   logger(`Saving user with id: ${user.id}`);
-// };
+/* const saveUser = (logger) => (user) => {
+   logger(`Saving user with id: ${user.id}`);
+ };
 
-// const saveAdmin = (logger) => (user) => {
-//   logger(`Saving admin with id: ${user.id}`);
-// };
-// const saveBook = (logger) => (user) => {
-//   logger(`Saving book with id: ${user.id}`);
-// };
-// const logger = (message) => {
-//   console.info(`LOG:${message}`);
-// };
+ const saveAdmin = (logger) => (user) => {
+   logger(`Saving admin with id: ${user.id}`);
+ };
+ const saveBook = (logger) => (user) => {
+   logger(`Saving book with id: ${user.id}`);
+ };
+ const logger = (message) => {
+   console.info(`LOG:${message}`);
+ };
 
-// const main = () => {
-//   const userSaver = saveUser(logger);
-//   const adminSaver = saveAdmin(logger);
-//   const bookSaver = saveBook(logger);
+const main = () => {
+   const userSaver = saveUser(logger);
+   const adminSaver = saveAdmin(logger);
+   const bookSaver = saveBook(logger);
 
-//   userSaver({ id: "1" });
-//   adminSaver({ id: "2" });
-//   bookSaver({ id: "3" });
-// };
-// main();
+   userSaver({ id: "1" });
+   adminSaver({ id: "2" });
+   bookSaver({ id: "3" });
+ };
+ main();*/
 
 // -----------------------------------------
 
@@ -117,16 +118,16 @@
 
 // globalLE {pow: func}
 
-// const pow = (x, n) => {
-// 	// {x: 2, n: 3} -> globalLE
-//   if (n === 1) {
-//     return x;
-//   } else {
-//     return x * pow(x, n - 1);
-//   }
-// };
+const pow = (x, n) => {
+    // {x: 2, n: 3} -> globalLE
+    if (n === 1) {
+        return x;
+    } else {
+        return x * pow(x, n - 1);
+    }
+};
 
-// console.log(pow(2, 3));
+console.log(pow(2, 3));
 
 // const a = () => {}
 
@@ -144,7 +145,7 @@
 
 // 5! -> 5 * 4! -> 5 * 4 * 3!
 
-const factorial = (x) => {
+/*const factorial = (x) => {
     if (x === 1) {
         return x;
     } else {
@@ -152,4 +153,30 @@ const factorial = (x) => {
     }
 };
 
-console.log(factorial(16));
+console.log(factorial(16));*/
+const delay = (ms) =>
+    new Promise((res) => {
+        setTimeout(() => {
+            res()
+        }, ms)
+    })
+
+delay(1000).then(() => console.log('Hello!'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
