@@ -269,11 +269,85 @@ const executePromise = (promise) => {
 }
 console.log(executePromise(Promise.resolve('success')))*/
 
+//----------------------------------------------
+
+/*Task1 */
+/*setTimeout(() => console.log(1), 0);
+console.log(2);
+(() => console.log(3))();
+Promise.resolve(console.log(4));//сначало выполнился console.log(4), он вернул undefined, а затем попытается создасться промис
+// но браузер проигнорирует, т.к. undefined, а если был бы например результат 5 - то был бы промис fullfiled с result 5*/
+
+//result: 2 3 4 1
 
 
+/*Task2*/
+// конструктор промисов внутри себя работает синхронно, пока не встретится что-то асинхронное и по факту обычная ф-ция
+/*new Promise(() => {
+ console.log(1)
+})
+new Promise(() => {
+    setTimeout(() => console.log(2), 0) //макротаска
+})
+Promise.resolve(setTimeout(() => console.log(3), 0))
+console.log(4)
+Promise.reject(console.log(5))*/
 
+//result: 1 4 5 2 3
 
+/*Task3*/
+/*(function (){
+    setTimeout(() => console.log(1), 100)
+})()
+console.log(2)
+new Promise(() => {
+    setTimeout(() => console.log(3), 50)
+})
+function f(){
+    console.log(4)
+}
+Promise.resolve(console.log(5)).then(() => console.log(6)) //микротаска. Выпоняется первее макротаски
 
+console.log(7)*/
+
+//result: 2 5 7 6 3 1
+
+/*Task4*/
+/*function f(num) {
+    console.log(num)
+}
+
+Promise.resolve(1)
+    .then(f);
+(function () {
+    console.log(2)
+})()
+console.log(3);
+new Promise(() => {
+    console.log(4)
+})
+setTimeout(f, 0, 5)*/
+//result: 2 3 4 1 5
+
+/*Task5*/
+(function (){
+    setTimeout(() => console.log(1), 100)
+})()
+console.log(2);
+let i = 0;
+while (i < 500000000){// пока цикл не посчитает js, ниже выполнять код не пойдет, поэтому из макротаски setTimeout, 100
+                      //выйдет раньше чем setTimeout, 50
+    i++
+}
+new Promise(() => {
+    setTimeout(() => console.log(3), 50)
+})
+function f(){
+    console.log(4)
+}
+Promise.resolve(console.log(5))
+
+//result: 2 5 1 3
 
 
 
