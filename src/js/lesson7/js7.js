@@ -254,6 +254,7 @@ promise
     .then(data => console.log(data))
 console.log(promise)*/
 
+/*
 //5. Создайте литерал объекта Obj со следующими свойствами: promise, resolve, reject, onSuccess, onError.
 // Проинициализируете первые три свойства null, а последние 2 функциями, которые принимают один пармеир и выводят в
 //консоль сообщение: первая - 'Promise is resolved with data ${paramName}
@@ -268,10 +269,10 @@ const obj = {
     promise: null,
     resolve: null,
     reject: null,
-    onSuccess(paramName){
+    onSuccess: function (paramName) {
         console.log(`Promise is resolved with data ${paramName}`)
     },
-    onError(paramName){
+    onError: function (paramName) {
         console.log(`Promise is rejected with data ${paramName}`)
     }
 }
@@ -283,14 +284,79 @@ const createPromiseHandler = () => {
     obj.promise = promise
 }
 const resolvePromiseHandler = () => {
-    obj.resolve()
+    obj.resolve('Promise data')
+    obj.onSuccess('Promise data')
 }
 const rejectPromiseHandler = () => {
-    obj.reject()
+    obj.reject('Promise error')
+    obj.onError('Promise error')
 }
 
 console.log(obj)
 createPromiseHandler()
 resolvePromiseHandler()
 rejectPromiseHandler()
-console.log(obj)
+console.log(obj)*/
+
+//6. Создайте промис, который через 1 с возвращает 'My name is'.
+//Создайте функцию onSuccess, которая получает 1 параметр, прибавляет к нему ваше имя и возвращает новую строку из функции.
+//Создайте функцию print, которая выводит в консоль значение своего параметра.
+//Добавьте 2 метода then и передайте созданные функции
+
+/*const promise = new Promise((res) => {
+    setTimeout(() => {
+        res('My name is')
+    }, 1000)
+})
+
+const onSuccess = (param) => {
+    return param + ' Kristina'
+}
+const print = (param) => {
+    console.log(param)
+}
+promise
+    .then(onSuccess)
+    .then(print)*/
+
+//7. Создайте 3 промиса. Первый промис возвращает объект {name: 'Anna'} через 2с,
+//второй промис - объект {age: 16} через 3с
+//третий промис - объект {city: ''} через 4с
+//Получите результат промисов, объедините свойства объектов и выведите в консоль {name, age, city}
+
+const promise1 = new Promise((res) => {
+    setTimeout(() => {
+        res({name: 'Anna'})
+    }, 2000)
+})
+const promise2 = new Promise((res) => {
+    setTimeout(() => {
+        res({age: 16})
+    }, 3000)
+})
+const promise3 = new Promise((res) => {
+    setTimeout(() => {
+        res({city: ''})
+    }, 4000)
+})
+
+const bigPromise = Promise.all([promise1, promise2, promise3])
+bigPromise
+    .then(arr => {
+        const newObj = arr.reduce((acc, obj) => {
+            return {...acc, ...obj}
+        }, {})
+        const newArr = Object.keys(newObj)
+        console.log(newArr)
+    })
+
+
+
+
+
+
+
+
+
+
+
