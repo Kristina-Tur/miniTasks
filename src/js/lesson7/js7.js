@@ -324,7 +324,7 @@ promise
 //третий промис - объект {city: ''} через 4с
 //Получите результат промисов, объедините свойства объектов и выведите в консоль {name, age, city}
 
-const promise1 = new Promise((res) => {
+/*const promise1 = new Promise((res) => {
     setTimeout(() => {
         res({name: 'Anna'})
     }, 2000)
@@ -348,7 +348,87 @@ bigPromise
         }, {})
         const newArr = Object.keys(newObj)
         console.log(newArr)
+    })*/
+
+//---------------------
+
+//2) А теперь перепишите свой промис, чтобы он обещал показать alert через 2 секунды
+/*
+new Promise(() => {
+    setTimeout(() => {
+        alert('Hi')
+    }, 2000)
+})
+*/
+
+//3) В отдельном файле создайте новый промис, скопировав старый, а внутри пообещав показать в alert через 3 секунды
+// сгенерированное рандомное число
+//И так же подпишитесь на resolve-промиса, и выведите в консоль сообщение.
+// Должны увидеть в алерте рандомное дробное число от 0 до 1 и в консоли сообщение, что подписчик на промис узнал о том,
+// что промис зарезолвился
+/*const promise = new Promise((res) => {
+    res(Math.random())
+})
+promise
+    .then(num => console.log(num))*/
+
+//Давайте создадим функцию doAfter, которая:
+// 1. … принимает параметром кол-во секунд, сколько ждать
+// 2. … внутри себя будет создавать Promise, обещание которого - просто ждать переданное на этапе 1 кол-во секунд и
+// резолвится через это время.
+// 3. ... возвращает созданный промис наружу.
+
+const doAfter = (ms) => {
+    const promise = new Promise((res) => {
+        setTimeout(() => {
+            res()
+        }, ms)
     })
+    return promise
+}
+/*doAfter(5).then( () => console.log('я сработал через 5 секунд') );
+doAfter(3).then( () => console.log('а я сработал через 3 секунд') );
+doAfter(10).then( () => console.log('я сработал через 10 секунд') );
+
+let promise3 = doAfter(3);
+promise3.then( () => console.log('я сработал через 3 секунд') );
+promise3.then( () => console.log('и я тоже следом сработал через 3 секунд') );
+promise3.then( () => console.log('и я') );*/
+
+/*
+let promise4 = doAfter(3);
+setTimeout(() => {
+    promise4.then(() => console.log('Резолв'));
+}, 1000)
+*/
+/*const p = new Promise((res) => {
+    let i = 0
+    setInterval(() => {
+        i++
+        res(i)
+    }, 3000)
+})
+p
+    .then(i => console.log(i))*/
+let pr = new Promise( (resolve) => {
+    let data = {
+        cities: [{title: "Minsk"}, {title: "Kiev"}],
+        website: "it-kamasutra.com"
+    };
+    resolve(data);
+});
+
+pr.then( data => {
+    console.log(data);
+    return 'it-kamasutra.com'
+})
+    .then( website => {
+        console.log(website);
+    })
+
+
+
+
 
 
 
