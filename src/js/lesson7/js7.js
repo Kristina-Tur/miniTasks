@@ -382,15 +382,14 @@ const doAfter = (ms) => {
     const promise = new Promise((res) => {
         setTimeout(() => {
             res()
-        }, ms)
+        }, ms * 1000)
     })
     return promise
 }
 /*doAfter(5).then( () => console.log('я сработал через 5 секунд') );
 doAfter(3).then( () => console.log('а я сработал через 3 секунд') );
-doAfter(10).then( () => console.log('я сработал через 10 секунд') );
-
-let promise3 = doAfter(3);
+doAfter(10).then( () => console.log('я сработал через 10 секунд') );*/
+/*let promise3 = doAfter(3);
 promise3.then( () => console.log('я сработал через 3 секунд') );
 promise3.then( () => console.log('и я тоже следом сработал через 3 секунд') );
 promise3.then( () => console.log('и я') );*/
@@ -410,6 +409,7 @@ setTimeout(() => {
 })
 p
     .then(i => console.log(i))*/
+/*
 let pr = new Promise( (resolve) => {
     let data = {
         cities: [{title: "Minsk"}, {title: "Kiev"}],
@@ -425,8 +425,23 @@ pr.then( data => {
     .then( website => {
         console.log(website);
     })
+*/
+const getRandomAfter = (ms) => {
+    return  new Promise((res) => {
+        setTimeout(() => {
+            res(Math.random())
+        }, ms * 1000)
+    })
+}
 
 
+/*getRandomAfter(4).then( number => console.log(`я получил ${number} спустя 4 секунды`))*/
+
+let promises = [getRandomAfter(1),getRandomAfter(2), getRandomAfter(3)];
+let commonPromise = Promise.all(promises);
+commonPromise.then( (arr) => {
+    console.log(arr)
+} );
 
 
 
