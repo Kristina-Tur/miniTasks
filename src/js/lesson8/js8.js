@@ -156,7 +156,7 @@
 
 // 9 10
 
-Promise.resolve()
+/*Promise.resolve()
   .then(() => {
     console.log(1);
     throw new Error();
@@ -173,6 +173,55 @@ Promise.resolve()
     throw new Error();
   })
   .catch(() => console.log(13))
-  .then(() => console.log(14));
+  .then(() => console.log(14));*/
 //1 11 3 12 4 13 5 14
 // 1 11 12 3 13 4 14 5
+/*
+const tasks = async () => {
+    console.log(1);
+
+    await new Promise((resolve, reject) => {
+        console.log(10);
+        resolve();
+    }).then(() => console.log(2));
+
+    setTimeout(() => {
+        Promise.resolve().then(() => console.log(3));
+        console.log(3.1);
+        Promise.resolve().then(() => console.log(3.2));
+    }, 0);
+
+    setTimeout(() => console.log(4), 0);
+
+    Promise.resolve().then(() => console.log(5));
+
+    console.log(6);
+}
+tasks();
+
+//1 6 10 2 5*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
