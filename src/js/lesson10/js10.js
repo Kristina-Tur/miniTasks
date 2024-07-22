@@ -20,77 +20,72 @@
 
 // "use strict";
 
-// function b() {
-//   //
-//   const a = () => {
-//     console.log(this);
-//   };
+/*function b() {
+  //
+  const a = () => {
+    console.log(this);
+  };
 
-//   a();
-// }
+  a();
+}
 
-// b();
+b();*/
 
-// function showBrand1() {
-// 	console.log(car1.brand);
-// }
+/*function showBrand() {
+  console.log(this.brand);
+}
 
-// var brand = "toyota";
+const car1 = {
+  brand: "bmw",
+};
 
-// function showBrand() {
-//   console.log(this.brand);
-// }
+const car2 = {
+  brand: "kia",
+};
 
-// const car1 = {
-//   brand: "bmw",
-// };
+car1.f = showBrand;
+car2.f = showBrand;
 
-// const car2 = {
-//   brand: "kia",
-// };
-
-// car1.f = showBrand;
-// car2.f = showBrand;
-
-// car1.f();
-// car2.f();
+car1.f();
+car2.f();*/
 
 // ------------------------------
 
 // 3. call, apply, bind
 
-// var speed = 100;
+/*
+const car = {
+  speed: 200,
+  showMaxSpeed () {
+    console.log(this.speed);
+  }
+};
 
-// const car = {
-//   speed: 200,
-//   showMaxSpeed: () => {
-//     console.log(this.speed);
-//   },
-// };
+const scooter = {
+  speed: 60,
+};
 
-// const scooter = {
-//   speed: 60,
-// };
+const ferrari = {
+  speed: 350,
+};
 
-// const ferrari = {
-//   speed: 350,
-// };
+// // car.showMaxSpeed.call(scooter, 10, 20);
+// // car.showMaxSpeed.apply(scooter, [20, 30]);
+/!*
+car.showMaxSpeed.bind(scooter, 10, 20)();*!/
 
-// // // car.showMaxSpeed.call(scooter, 10, 20);
-// // // car.showMaxSpeed.apply(scooter, [20, 30]);
+/!*car.showMaxSpeed.bind(scooter).call(ferrari);*!/
+/!*setTimeout(car.showMaxSpeed.bind(car), 2000);*!/
+setTimeout(() => car.showMaxSpeed(), 2000);
 
-// // // car.showMaxSpeed.bind(scooter, 10, 20)();
-
-// car.showMaxSpeed.bind(scooter).call(ferrari);
-
-// setTimeout(car.showMaxSpeed.bind(car), 2000);
-// setTimeout(() => car.showMaxSpeed(), 2000);
-
-// function setTimeout(callback, delay) {
-//   // delay
-//   ///
-//   // callback(); () => car.showMaxSpeed()
-// }
+/!*
+function setTimeout(callback, delay) {
+  // delay
+  ///
+  // callback(); () => car.showMaxSpeed()
+}
+*!/
+*/
 
 // ------------------------------
 
@@ -112,73 +107,65 @@
 
 // --------------------------------
 
-// const car = {
-//   brand: "ferrari",
-//   color: "red",
-//   showColor() {
-//     return `Car color ${this.color}`;
-//   },
-//   showBrand: () => {
-//     return `Car brand ${this.brand}`;
-//   },
-// };
-
-// console.log(car.showColor()); // red                | red
-// console.log(car.showBrand()); // ferrari/undefined  | undefined
-
-// const car = {
-//   color: "red",
-//   firstShowColor() {
-//     console.log("1", this.color);
-//   },
-//   secondShowColor: () => {
-//     console.log("2", this.color);
-//   },
-//   thirdShowColor() {
-// 		// this
-//     (() => {
-//       console.log("3", this.color);
-//     })();
-//   },
-// };
-
-// car.firstShowColor(); // red
-// car.secondShowColor(); // undefined
-// car.thirdShowColor(); // red
-
-// const car = { color: "red" };
-// const car2 = { color: "black" };
-
-// function foo() {
-//   console.log(this.color);
-// }
-
-// const bindedFoo = foo.bind(car);
-// const bindedBindedFoo = bindedFoo.bind(car2);
-// bindedBindedFoo();
-
-// console.dir(foo);
-// console.dir(bindedFoo);
-
-// const dialer = {
-//   brand: "Toyota",
-//   models: ["Yaris", "Corolla", "Prado"],
-//   showModelsInDialer() {
-
-// 		function foo (model) {
-//       console.log(`Dialer: ${this.brand}, have: ${model}`);
-//     }
-
-//     this.models.forEach(foo);
-//   },
-// };
-
-// dialer.showModelsInDialer();
-// console.log(window);
-
-/*const obj = {
-  x: 100,
+/*const car = {
+  brand: "ferrari",
+  color: "red",
+  showColor() {
+    return `Car color ${this.color}`;
+  },
+  showBrand: () => {
+    return `Car brand ${this.brand}`;
+  },
 };
+
+console.log(car.showColor());
+console.log(car.showBrand());*/
+
+/*const car = {
+  color: "red",
+  firstShowColor() {
+    console.log("1", this.color);
+  },
+  secondShowColor: () => {
+    console.log("2", this.color);
+  },
+  thirdShowColor() {
+		// this
+    (() => {
+      console.log("3", this.color);
+    })();
+  },
+};
+
+car.firstShowColor();
+car.secondShowColor();
+car.thirdShowColor();*/
+
+/*const car = { color: "red" };
+const car2 = { color: "black" };
+
+function foo() {
+  console.log(this.color);
+}
+
+const bindedFoo = foo.bind(car);
+const bindedBindedFoo = bindedFoo.bind(car2);
+bindedBindedFoo();
+
+/!*console.dir(foo);
+console.dir(bindedFoo);*!/*/
+
+/*const dialer = {
+  brand: "Toyota",
+  models: ["Yaris", "Corolla", "Prado"],
+  showModelsInDialer() {
+    this.models.forEach(function (model) {
+      console.log(`Dialer: ${this.brand}, have: ${model}`)
+    })
+  }
+};
+
+dialer.showModelsInDialer();*/
 
 function foo() {
   const x = 10;
@@ -192,22 +179,20 @@ function foo() {
       console.log(this.x);
     },
   };
-}*/
+}
 
-// obj.f = foo;
 
-// const obj1 = foo();
-// obj1.bar();
-// obj1.baz();
+/*const obj1 = foo();
+obj1.bar();
+obj1.baz();*/
 
-/*const obj2 = foo.call({ x: 30 });
+const obj2 = foo.call({ x: 30 });
 
-// obj2.bar();
-// obj2.baz();
+/*obj2.bar();
+obj2.baz();*/
 
 let y = obj2.bar;
-obj.z = obj2.baz;
 let z = obj2.baz;
 
 y();
-obj.z();*/
+z();
