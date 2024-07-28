@@ -21,6 +21,20 @@ console.log(typeof console.log(1))
 console.log(typeof (typeof {}))*/
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*console.log(typeof Object) //'function'
 console.log(typeof Date) // 'function' //возвращает текущую дату
 console.log(typeof null) //'object'
