@@ -72,13 +72,40 @@ console.log( rabbit.eats ); // true
 let rabbit2 = new Rabbit()
 console.log(rabbit2) //*/
 
+//-------------------------------
+
+/*function f() {
+    alert("Hello!");
+}
+
+Function.prototype.defer = function (ms){
+    setTimeout(this, ms)
+}
+
+f.defer(1000); // выведет "Hello!" через 1 секунду*/
+
+//Добавьте всем функциям в прототип метод defer(ms), который возвращает обёртку, откладывающую вызов функции на ms миллисекунд.
+//Например, должно работать так:
+
+function f(a, b) {
+    alert(a + b);
+}
+
+Function.prototype.defer = function (ms) {
+    const f = this
+    return function (...args) {
+        setTimeout(() => f.apply(this, args), ms)
+    }
+}
+
+f.defer(1000)(1, 2); // выведет 3 через 1 секунду.
 
 
 
-
-
-
-
+function foo () {
+    return 1
+}
+console.log(foo.call(5))
 
 
 
