@@ -8,6 +8,11 @@ export class Game {
     #player1
     #player2
     #google
+    #googleJumpIntervalID
+    #score = {
+        1: {points: 0},
+        2: {points: 0},
+    }
 
     constructor() {
         this.#state = GAME_STATUSES.PENDING
@@ -17,7 +22,8 @@ export class Game {
                 columnsCount: 4,
                 rowsCount: 3
             },
-            jumpInterval: 10
+            googleJumpInterval: 2000,
+            pointsToWin: 10
         }
     }
 
@@ -35,18 +41,121 @@ export class Game {
         return new Position(newX, newY)
     }
 
+    #moveGoogleToRandomPosition(isStartPosition) {
+        const googlePosition = isStartPosition
+            ? this.#getRandomPosition([this.#player1.position, this.#player2.position])
+            : this.#getRandomPosition([this.#player1.position, this.#player2.position, this.#google.position])
+        this.#google = new Google(googlePosition)
+    }
+
     #createUnits() {
         const playerPosition1 = this.#getRandomPosition()
         this.#player1 = new Player(1, playerPosition1)
         const playerPosition2 = this.#getRandomPosition([playerPosition1])
         this.#player2 = new Player(2, playerPosition2)
-        const googlePosition = this.#getRandomPosition([playerPosition1, playerPosition2])
-        this.#google = new Google(googlePosition)
+        this.#moveGoogleToRandomPosition(true)
     }
 
     async start() {
         this.#state = GAME_STATUSES.IN_PROGRESS
         this.#createUnits()
+        this.#googleJumpIntervalID = setInterval(() => {
+            this.#moveGoogleToRandomPosition(false)
+        }, this.settings.googleJumpInterval)
+    }
+
+    stop() {
+        this.#state = GAME_STATUSES.FINISHED
+        clearInterval(this.#googleJumpIntervalID)
+    }
+
+    #isBorder(movingPlayer, step) {
+        let prevPlayerPosition = movingPlayer.position.copy()
+        if (step.x) {
+            prevPlayerPosition += step.x
+            return prevPlayerPosition.x < 1 || prevPlayerPosition.x > this.settings.grisSize.columnsCount
+        }
+        if (step.y) {
+            prevPlayerPosition += step.y
+            return prevPlayerPosition.y < 1 || prevPlayerPosition.y > this.settings.grisSize.rowsCount
+        }
+    }
+
+    #isOtherPlayer(movingPlayer, otherPlayer, step) {
+        let prevPlayerPosition = movingPlayer.position.copy()
+        if (step.x) {
+            prevPlayerPosition.x += step.x
+        }
+        if (step.y) {
+            prevPlayerPosition.y += step.y
+        }
+        return prevPlayerPosition.equal(otherPlayer.position)
+    }
+
+    #checkGoogleCatching(movingPlayer){
+        if(movingPlayer.position.equal(this.#google.position)){
+            this.#score[movingPlayer.id].points++
+        }
+        if(this.#score[movingPlayer.id].points === this.#settings.pointsToWin){
+            this.stop()
+            this.#google = new Google(new Position(0, 0))
+        }
+        this.#moveGoogleToRandomPosition()
+    }
+
+    #movePlayer(movingPlayer, otherPlayer, step){
+        const isBorder = this.#isBorder(movingPlayer, step)
+        const isOtherPlayer = this.#isOtherPlayer(movingPlayer, otherPlayer, step)
+        if (isBorder || isOtherPlayer) {
+            return
+        }
+        if(step.x){
+            movingPlayer.position.x += step.x
+        }
+        if(step.y){
+            movingPlayer.position.y += step.y
+        }
+        this.#checkGoogleCatching(movingPlayer)
+    }
+
+    movePlayerRight1() {
+        const step = {x: 1}
+       this.#movePlayer(this.#player1,this.#player2, step)
+    }
+
+    movePlayerLeft1() {
+        const step = {x: -1}
+        this.#movePlayer(this.#player1,this.#player2, step)
+    }
+
+    movePlayerUp1() {
+        const step = {y: -1}
+        this.#movePlayer(this.#player1,this.#player2, step)
+    }
+
+    movePlayerDown1() {
+        const step = {y: 1}
+        this.#movePlayer(this.#player1,this.#player2, step)
+    }
+
+    movePlayerRight2() {
+        const step = {x: 1}
+        this.#movePlayer(this.#player2,this.#player1, step)
+    }
+
+    movePlayerLeft2() {
+        const step = {x: -1}
+        this.#movePlayer(this.#player2,this.#player1, step)
+    }
+
+    movePlayerUp2() {
+        const step = {y: -1}
+        this.#movePlayer(this.#player2,this.#player1, step)
+    }
+
+    movePlayerDown2() {
+        const step = {y: 1}
+        this.#movePlayer(this.#player2,this.#player1, step)
     }
 
     get player1() {
@@ -60,11 +169,20 @@ export class Game {
     get settings() {
         return this.#settings
     }
+
     set settings(settings) {
-         this.#settings = settings
+        this.#settings = settings
     }
-    get google(){
+
+    get google() {
         return this.#google
+    }
+
+    get score(){
+        return this.#score
+    }
+    set score(score) {
+        this.#score = score
     }
     #jumpGoogle() {
         const newGooglePosition = {
@@ -81,7 +199,6 @@ export class Game {
     async getStatus() {
         return this.#state
     }
-
 
 
     async getGooglePosition() {
@@ -121,6 +238,14 @@ class Position {
     constructor(x, y) {
         this.x = x
         this.y = y
+    }
+
+    copy() {
+        return new Position(this.x, this.y)
+    }
+
+    equal(somePosition) {
+        return somePosition.x === this.x && somePosition.y === this.y
     }
 }
 
