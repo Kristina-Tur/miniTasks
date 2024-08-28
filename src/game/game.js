@@ -14,17 +14,18 @@ export class Game {
         2: {points: 0},
     }
 
-    constructor() {
+    constructor(eventEmitter) {
         this.#state = GAME_STATUSES.PENDING
         this.#googlePosition = {x: 1, y: 2}
         this.#settings = {
             grisSize: {
                 columnsCount: 4,
-                rowsCount: 3
+                rowsCount: 4
             },
-            googleJumpInterval: 2000,
-            pointsToWin: 10
+            googleJumpInterval: 1000,
+            pointsToWin: 3
         }
+        this.eventEmitter = eventEmitter
     }
 
     #getRandomPosition(takenPosition = []) {
@@ -46,6 +47,8 @@ export class Game {
             ? this.#getRandomPosition([this.#player1.position, this.#player2.position])
             : this.#getRandomPosition([this.#player1.position, this.#player2.position, this.#google.position])
         this.#google = new Google(googlePosition)
+
+        this.eventEmitter.emit('changePosition')
     }
 
     #createUnits() {
@@ -56,12 +59,16 @@ export class Game {
         this.#moveGoogleToRandomPosition(true)
     }
 
-    async start() {
-        this.#state = GAME_STATUSES.IN_PROGRESS
-        this.#createUnits()
+    #startGoogleJumpInterval(){
         this.#googleJumpIntervalID = setInterval(() => {
             this.#moveGoogleToRandomPosition(false)
         }, this.settings.googleJumpInterval)
+    }
+
+    async start() {
+        this.#state = GAME_STATUSES.IN_PROGRESS
+        this.#createUnits()
+        this.#startGoogleJumpInterval()
     }
 
     stop() {
@@ -72,11 +79,11 @@ export class Game {
     #isBorder(movingPlayer, step) {
         let prevPlayerPosition = movingPlayer.position.copy()
         if (step.x) {
-            prevPlayerPosition += step.x
+            prevPlayerPosition.x += step.x
             return prevPlayerPosition.x < 1 || prevPlayerPosition.x > this.settings.grisSize.columnsCount
         }
         if (step.y) {
-            prevPlayerPosition += step.y
+            prevPlayerPosition.y += step.y
             return prevPlayerPosition.y < 1 || prevPlayerPosition.y > this.settings.grisSize.rowsCount
         }
     }
@@ -95,12 +102,15 @@ export class Game {
     #checkGoogleCatching(movingPlayer){
         if(movingPlayer.position.equal(this.#google.position)){
             this.#score[movingPlayer.id].points++
+            this.#moveGoogleToRandomPosition()
         }
         if(this.#score[movingPlayer.id].points === this.#settings.pointsToWin){
             this.stop()
             this.#google = new Google(new Position(0, 0))
+            return
         }
-        this.#moveGoogleToRandomPosition()
+        clearInterval(this.#googleJumpIntervalID)
+        this.#startGoogleJumpInterval()
     }
 
     #movePlayer(movingPlayer, otherPlayer, step){
@@ -116,6 +126,8 @@ export class Game {
             movingPlayer.position.y += step.y
         }
         this.#checkGoogleCatching(movingPlayer)
+
+        this.eventEmitter.emit('changePosition')
     }
 
     movePlayerRight1() {
